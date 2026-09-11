@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <cmath>
 
 // This Lab is preparation for a coding exam on Friday 2nd October @ 3pm in D422 and D417.
 
@@ -31,9 +32,9 @@ int Reversed(int testNumber) {
         numDigits++;
     }
 
-    printf("Original Number: %d", testNumber);
-    printf("Number of digits: %d", numDigits);
-    printf("Reversed Number is: %d", reversedNumber);
+    printf("Original Number: %d \n", testNumber);
+    printf("Number of digits: %d \n", numDigits);
+    printf("Reversed Number is: %d \n", reversedNumber);
 
     return 0;
 }
@@ -53,7 +54,7 @@ bool isAPalindrome(int testNumber) {
     }
 
     if (testNumber == reversedNumber) {
-        printf("The number %d is a palindrome!! ", testNumber);
+        printf("The number %d is a palindrome!! \n", testNumber);
         return true;
     }
 
@@ -67,7 +68,7 @@ bool isAPrimeNumber(int numbertoTest) {
     int noOfDivisors = 0;
 
     if (numbertoTest <= 1) {
-        printf("The number %d is not prime", numbertoTest);
+        printf("The number %d is not prime \n", numbertoTest);
         return false;
     }
     else {
@@ -78,10 +79,10 @@ bool isAPrimeNumber(int numbertoTest) {
         }
 
         if (noOfDivisors > 2) {
-            printf("The number %d is not prime", numbertoTest);
+            printf("The number %d is not prime \n", numbertoTest);
         }
         else {
-            printf("The number %d is prime", numbertoTest);
+            printf("The number %d is prime \n", numbertoTest);
             return true;
         }
     }
@@ -93,6 +94,20 @@ bool isAPrimeNumber(int numbertoTest) {
 // E.g., 110 -> 6.
 int convertBinarytoDecimal(int binaryNumber) {
 
+    int decimal = 0;
+    int lastDigit = 0;
+    int raiseTo = 0;
+        
+        // 1 * 2 ^ 2 + 1 * 2 ^ 1 + 0 * 2 ^ 0
+        while (binaryNumber != 0) {
+            lastDigit = lastDigit % 10;
+            binaryNumber = binaryNumber / 10;
+            decimal += lastDigit * pow(2, raiseTo);
+            ++raiseTo;
+        }
+
+        printf("The binary number %d converted to decimal number is: %d \n", binaryNumber, decimal);
+
     return 0;
 }
 
@@ -102,6 +117,12 @@ int convertBinarytoDecimal(int binaryNumber) {
 // AAA
 // AAAA
 void drawRightAngledTriangle() {
+    for (int i = 1; i <= 4; i++) {
+        for (int j = 1; j <= i; j++) {
+            printf("A");
+        }
+        printf("\n");
+    }
 }
 
 // Q7: Output an isosceles (diamond-like) triangle of 'A's using 2 for loops
@@ -114,6 +135,21 @@ void drawRightAngledTriangle() {
 // AA
 // A
 void drawIsocelesTriangle() {
+    for (int i = 1; i <= 7; i++) {
+        int count;
+
+        if (i <= 4) {
+            count = i; // row 1 - 4
+        }
+        else {
+            count = 8 - i; // row 5 - 7 
+        }
+
+        for (int j = 1; j <= count; j++) {
+            printf("A");
+        }
+        printf("\n");
+    }
 }
 
 // Q19 (EXTRA): Output the same diamond pattern as Q7 using only 2 for loops
