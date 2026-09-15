@@ -160,17 +160,43 @@ void drawIsocelesTriangle2() {
 // Q8: Find an element in an array and print the index where it was found,
 // or -1 if not found.
 int find(int size, int arr[], int toFind) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == toFind)
+        {
+            printf("The index of the number %d in the array is %d", toFind, i);
+            return 0;
+        }
+    }
     return -1;
 }
 
 // Q9: Find and return the second largest element in an array of positive
 // integers; returns -1 if it can't find one.
 int find2ndLargest(int size, int arr[]) {
-    return -1;
+    int maximumNumber = -1;
+    int secondLargest = -1;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] > maximumNumber) {
+            // Current max becomes new second largest
+            secondLargest = maximumNumber;
+            maximumNumber = arr[i];
+        }
+        else if (arr[i] > secondLargest && arr[i] != maximumNumber) {
+            // Number is between max and second max
+            secondLargest = arr[i];
+        }
+    }
+
+    return secondLargest;
 }
 
 // Q10: Copy all elements from arr1 to arr2. Both arrays are the same size.
 void copyArraytoArray(int size, int arr1[], int arr2[]) {
+    for (int i = 0; i < size; i++) {
+        arr2[i] = arr1[i];
+    }
+
     return;
 }
 
