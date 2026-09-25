@@ -204,46 +204,169 @@ void copyArraytoArray(int size, int arr1[], int arr2[]) {
 // to the right. 'count' tracks the number of elements and cannot exceed 'size'.
 // Returns true if an element was inserted, otherwise false.
 bool insertElement(int& size, int& count, int arr[], int elementToInsert, int insertIndex) {
-    return false;
+    
+    //Check if the array is full or index is out of bounds
+    if (count >= size || insertIndex < 0 || insertIndex > count)
+    {
+        return false;
+    }
+
+    //shift elements to the right from the back
+    for (int i = count; count > insertIndex; count --)
+    {
+        arr[i] = arr[i - 1];
+    }
+
+    //Insert element at specified index
+    arr[insertIndex] = elementToInsert;
+
+    count++;
+
+    return true;
 }
 
 // Q12: Delete an element at a specified position, shifting higher elements
 // to the left by one. 'count' tracks the number of elements and cannot exceed
 // 'size'. Returns true if an element was deleted, otherwise false.
 bool deleteElement(int& size, int& count, int arr[], int deleteIndex) {
+
+    if (count >= size || deleteIndex < 0 || deleteIndex > size) {
+        return false;
+    }
+
+    //Shift elements to the left 
+    for (int i = deleteIndex; i < count - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+
+    count--; 
     return true;
 }
 
 // Q13: Count the frequency of a given element in an array.
 int frequencyCount(int size, int arr[], int value) {
-    return 0;
+
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == value)
+        {
+            count++;
+        }
+    }
+
+    return count;
 }
 
 // Q14: Count the total number of duplicate elements in an array.
 int countDuplicates(int size, int arr[]) {
-    return 0;
+
+    int duplicateCount = 0;
+
+    for (int i = 0; i < size; i++) {
+        bool alreadySeen = false; //check if arr[i] appeared previously in indices 0 to 0-1
+
+        for (int k = 0; k < i; k++)
+        {
+            if (arr[i] == arr[k]) {
+                alreadySeen = true;
+                break;
+            }
+        }
+
+        if (alreadySeen) {
+            duplicateCount++;
+        }
+
+    }
+    return duplicateCount;
 }
 
 // Q15: Reverse an array in place using only 1 array.
 void reverse(int size, int arr[]) {
+
+    for (int i = 0; i < size / 2; i++)
+    {
+        int temp = arr[i];
+        arr[i] = arr[size - 1 - i];
+        arr[size - 1 - i] = temp;
+    }
+
+    //Print reversed array
+    for (int i = 0; i < size; i++) {
+        printf("%d", arr[i]);
+    }
+
     return;
 }
 
 // Q16: Left rotate an array by one position, moving the first element to the end.
 int rotateLeft(int size, int arr[]) {
-    return -1;
+
+    if (size <= 1) {
+        return;
+    }
+
+    //Save the first element in temp variable
+    int temp = arr[0];
+
+    //Shift every remaining element left by one index
+    for (int i = 0; i < size - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+
+    //Place the saved first element at the very end of the array
+    arr[size - 1] = temp;
+
+    return 0;
 }
 
 // Q17: Given a flight length and an array of movie lengths, return true if
 // there are exactly two movies whose runtimes sum to the flight length.
 // Users watch exactly two movies and cannot watch the same movie twice.
 bool twoMovies(int flightLength, int movieLengths[], int size) {
+
+    //Classic Two sum question
+ 
+    // Outer loop selects the first movie
+    for (int i = 0; i < size; i++) {
+        // Inner loop checks every subsequent movie to form a pair
+        for (int j = i + 1; j < size; j++) {
+            if (movieLengths[i] + movieLengths[j] == flightLength) {
+                return true; // Found a pair that fills the flight exactly!
+            }
+        }
+    }
+
     return false;
 }
+
 // Q18: Count the number of separate words in an array of chars, where a word
 // is one or more characters in ranges A..Z or a..z separated by spaces.
+
+// Helper function to check if a character is an uppercase or lowercase letter
+bool isLetter(char c) {
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
+
 int wordCounter(int size, char characters[]) {
-    return 0;
+    int wordCount = 0;
+    bool inWord = false; // Tracks if we are currently inside a word
+
+    for (int i = 0; i < size; i++) {
+        if (isLetter(characters[i])) {
+            // If we find a letter and were not already in a word, a new word starts!
+            if (!inWord) {
+                wordCount++;
+                inWord = true;
+            }
+        }
+        else {
+            // Space or non-letter character ends the current word
+            inWord = false;
+        }
+    }
+
+    return wordCount;
 }
 // ----------------------------------------------------------------------------
 // Q19: PrintArray
@@ -252,6 +375,11 @@ int wordCounter(int size, char characters[]) {
 // ----------------------------------------------------------------------------
 void PrintArray(int array[4][6])
 {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; i < 6; j++) {
+            printf("%d", array[i][j]);
+        }
+    }
 }
 
 // ----------------------------------------------------------------------------
